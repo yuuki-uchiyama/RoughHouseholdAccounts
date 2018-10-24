@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import GoogleMobileAds
+import SVProgressHUD
 
 class TermViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,  UIPickerViewDataSource,UIPickerViewDelegate, UITextFieldDelegate {
     
@@ -37,6 +38,7 @@ class TermViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     var bannerView: GADBannerView!
     var bannerAdsView: BannerAdsView!
+    var backView:UIView!
     
 //    編集画面から遷移した際に使用するもの
     var editBool = false
@@ -48,8 +50,8 @@ class TermViewController: UIViewController, UICollectionViewDataSource, UICollec
     var incomeCategoryArray: [String] = []
     var displayCategoryArray: [String] = []
     let dayArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
-    var rangeArray = ["より少ない", "より少し少ない", "くらい", "より少し多い", "より多い"]
-    var rangeDic: [String:Int] = ["より少ない":-2, "より少し少ない":-1, "くらい":0, "より少し多い":1, "より多い":2 ]
+    var rangeArray = ["より少ない", "より少し少ない", "ピッタリ", "より少し多い", "より多い"]
+    var rangeDic: [String:Int] = ["より少ない":-2, "より少し少ない":-1, "ピッタリ":0, "より少し多い":1, "より多い":2 ]
     
     //    ピッカービュー、コレクションビューの初期位置
     var rangePVRow = 2
@@ -60,7 +62,7 @@ class TermViewController: UIViewController, UICollectionViewDataSource, UICollec
     var type = "支出"
     var category = ""
     var amount = 0
-    var rangeString = "くらい"
+    var rangeString = "ピッタリ"
     var range = 0
     var inputDay = 1
     var nextInputDate = Date()
@@ -86,7 +88,7 @@ class TermViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        SVProgressHUD.setMinimumDismissTimeInterval(0)
         context = appDelegate.persistentContainer.viewContext
         
         layoutSetting()
@@ -129,7 +131,7 @@ class TermViewController: UIViewController, UICollectionViewDataSource, UICollec
             
             bannerView = GADBannerView(adSize: kGADAdSizeBanner)
             admobView.addSubview(bannerView)
-            bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+            bannerView.adUnitID = "ca-app-pub-3240594386716005/9516385182"
             bannerView.rootViewController = self
             bannerView.load(GADRequest())
         }else{
@@ -284,7 +286,11 @@ class TermViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     @IBAction func inputButton(_ sender: Any) {
-        if itemNameTextField.text != "" && amountTextField.text != ""{
+        if itemNameTextField.text == ""{
+            SVProgressHUD.showError(withStatus: "項目名が未記入です")
+        }else if amountTextField.text == ""{
+            SVProgressHUD.showError(withStatus: "金額が未記入です")
+        }else{
             itemName = itemNameTextField.text!
             amount = Int(amountTextField.text!)!
             let rangeNumber = rangeDic[rangeString]!
@@ -353,7 +359,11 @@ class TermViewController: UIViewController, UICollectionViewDataSource, UICollec
             try! context.save()
             print(nextInputDate)
         }
-        bannerAdsView = BannerAdsView(frame: CGRect(x: 0, y: 0, width: 336, height: 386))
+        backView = UIView(frame: self.view.frame)
+        backView.backgroundColor = UIColor.white
+        backView.alpha = 0.3
+        self.view.addSubview(backView)
+        bannerAdsView = BannerAdsView(frame: CGRect(x: 0, y: 0, width: 320, height: 180))
         bannerAdsView.center = self.view.center
         bannerAdsView.addAds(self)
         bannerAdsView.labelChenged(editBool)
@@ -363,6 +373,7 @@ class TermViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     @objc func OKButton(){
+        backView.removeFromSuperview()
         bannerAdsView.removeFromSuperview()
         if editBool{
             performSegue(withIdentifier: "unwindToTerm", sender: nil)
@@ -374,6 +385,7 @@ class TermViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     @objc func toTermItemButton(){
+        backView.removeFromSuperview()
         bannerAdsView.removeFromSuperview()
         if editBool{
             performSegue(withIdentifier: "unwindToTermItem", sender: nil)

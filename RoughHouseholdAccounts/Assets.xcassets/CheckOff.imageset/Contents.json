@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "無料の設定歯車アイコン.png",
+      "filename" : "CheckOff.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "CheckOff@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "CheckOff@3x.png",
       "scale" : "3x"
     }
   ],

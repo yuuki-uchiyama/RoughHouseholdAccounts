@@ -61,7 +61,7 @@ class SettingItemViewController: UIViewController, UITableViewDataSource, UITabl
         
         bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         admobView.addSubview(bannerView)
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = "ca-app-pub-3240594386716005/9516385182"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         // Do any additional setup after loading the view.

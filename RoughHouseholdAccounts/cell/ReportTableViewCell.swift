@@ -11,9 +11,11 @@ import UIKit
 class ReportTableViewCell: UITableViewCell {
 
     @IBOutlet weak var colorView: UIView!
+    @IBOutlet weak var rightColorView: UIView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var rangeLabel: UILabel!
+    @IBOutlet weak var underBarView: UIView!
     
     let formatter = DateFormatter()
     
@@ -29,10 +31,21 @@ class ReportTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setting(_ colorRow:Int, _ date:Date, _ amount:Int, _ rangeString:String, _ range:Int, _ percent:Double){
+    func setting(leftColor:UIColor?,rightColor:UIColor?, _ date:Date, _ amount:Int, _ rangeString:String, _ range:Int, _ percent:Double, _ wasteBool:Bool){
 
-        colorView.backgroundColor = CategorySpendColor.colorArray[colorRow]
+        if let sColor = leftColor{
+        colorView.backgroundColor = sColor
         colorView.frame.size.width = self.frame.size.width * CGFloat(percent / 100.0)
+        }else{
+            colorView.isHidden = true
+        }
+        if let iColor = rightColor{
+            rightColorView.backgroundColor = iColor
+            rightColorView.frame.size.width = self.frame.size.width * CGFloat(percent / 100.0)
+            rightColorView.frame.origin.x = self.frame.width - rightColorView.frame.width
+        }else{
+            rightColorView.isHidden = true
+        }
 
         let dateString = formatter.string(from: date)
         dateLabel.text = dateString
@@ -43,6 +56,14 @@ class ReportTableViewCell: UITableViewCell {
             rangeLabel.text = "\(rangeString)"
         }else{
             rangeLabel.text = "\(rangeString)\n(\(range)円)"
+        }
+        
+        if wasteBool{
+            underBarView.backgroundColor = UIColor.flatYellow
+            self.backgroundColor = UIColor.flatSand
+        }else{
+            underBarView.backgroundColor = UIColor.clear
+            self.backgroundColor = UIColor.flatWhite
         }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="IncomeCategory" representedClassName="IncomeCategory" syncable="YES" codeGenerationType="class">
         <attribute name="categoryName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -37,6 +37,7 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="range" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="rangeString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wasteBool" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
         <element name="IncomeCategory" positionX="-18" positionY="99" width="128" height="75"/>
@@ -44,6 +45,6 @@
         <element name="InputSchedule" positionX="-18" positionY="54" width="128" height="180"/>
         <element name="Settings" positionX="9" positionY="90" width="128" height="90"/>
         <element name="SpendCategory" positionX="-27" positionY="63" width="128" height="75"/>
-        <element name="SpendReport" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="SpendReport" positionX="-63" positionY="-18" width="128" height="135"/>
     </elements>
 </model>

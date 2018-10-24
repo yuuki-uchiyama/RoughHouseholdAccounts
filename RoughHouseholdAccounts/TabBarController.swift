@@ -16,8 +16,9 @@ import GoogleMobileAds
 class TabBarController: RAMAnimatedTabBarController {
     
     var bannerView: GADBannerView!
+    var testBannerBool = true
     
-    var spendClassArray = ["食費", "交通費", "仕事関連", "趣味", "交際費", "医療", "光熱費", "住宅関係", "雑費", "その他"]
+    var spendClassArray = ["食費", "交通費", "医療", "日用品", "項目その1", "項目その2", "項目その3", "項目その4", "項目その5", "その他"]
     var incomeClassArray = ["給与", "臨時収入", "賞与", "お小遣い", "副業", "その他"]
     
     
@@ -28,9 +29,6 @@ class TabBarController: RAMAnimatedTabBarController {
         super.viewDidLoad()
         
         let context:NSManagedObjectContext = appDelegate.persistentContainer.viewContext
-        
-//        コアデータ全件削除
-//        methods.allDelete()
         
         let spendCategoryFetch: NSFetchRequest<SpendCategory> = SpendCategory.fetchRequest()
         let spendCategoryResults = try! context.fetch(spendCategoryFetch)
@@ -62,6 +60,9 @@ class TabBarController: RAMAnimatedTabBarController {
         UserDefaults.standard.set(settings.initialization, forKey: Const.initialization)
         UserDefaults.standard.set(settings.separateDay, forKey: Const.separateDay)
         
+        if !UserDefaults.standard.bool(forKey: Const.updateTo2){
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {

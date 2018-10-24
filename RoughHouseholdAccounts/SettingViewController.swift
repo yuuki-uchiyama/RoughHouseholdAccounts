@@ -12,6 +12,7 @@ import SVProgressHUD
 
 class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    @IBOutlet weak var helpButton: UIButton!
     @IBOutlet weak var dayPickerView: UIPickerView!
     @IBOutlet weak var initializationSC: UISegmentedControl!
     
@@ -157,7 +158,7 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBAction func rangeSettingEdit(_ sender: Any) {
         if settings.rangeSetting != rangeSetting{
         settings.rangeSetting = rangeSetting
-        let rangeDic: [String:Int] = ["より少ない":-2, "より少し少ない":-1, "くらい":0, "より少し多い":1, "より多い":2 ]
+        let rangeDic: [String:Int] = ["より少ない":-2, "より少し少ない":-1, "ピッタリ":0, "より少し多い":1, "より多い":2 ]
         let methods = Methods().self
         let editSpendFetch: NSFetchRequest<SpendReport> = SpendReport.fetchRequest()
         let spendReportArray = try! context.fetch(editSpendFetch)
@@ -197,13 +198,27 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         sender.layer.shadowOffset = CGSize(width: 3, height: 3)
     }
     
+    @IBAction func helpButton(_ sender: UIButton) {
+        let helpView = HelpView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 0.9, height: self.view.frame.height * 0.8))
+        helpView.center = self.view.center
+        self.view.addSubview(helpView)
+        sender.isEnabled = false
+        helpView.dismissButton.addTarget(self, action: #selector(helpEnabled), for: .touchUpInside)
+    }
+    
+    @objc func helpEnabled(){
+        helpButton.isEnabled = true
+    }
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier != ""{
+        if segue.identifier != nil{
             let settingItemVC: SettingItemViewController = segue.destination as! SettingItemViewController
         if segue.identifier == "spendCategoryEdit"{
             settingItemVC.type = "spend"

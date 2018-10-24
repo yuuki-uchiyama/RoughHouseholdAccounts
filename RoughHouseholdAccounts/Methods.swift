@@ -55,6 +55,133 @@ class Methods{
         return array
     }
     
+    func loadSpendReport(_ startDate:NSDate?,_ EndDate:NSDate?,_ category:String?) -> [SpendReport] {
+        let context:NSManagedObjectContext = appDelegate.persistentContainer.viewContext
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        var predicate:NSPredicate!
+        switch (startDate, category) {
+        case (.some,.none):
+            predicate = NSPredicate(format:"(date >= %@) AND (date <= %@)",startDate!,EndDate!)
+        case (.none,.some):
+            predicate = NSPredicate(format:"(category == %@)",category!)
+        case (.some,.some):
+            predicate = NSPredicate(format:"(date >= %@) AND (date <= %@) AND (category == %@)",startDate!,EndDate!,category!)
+        default:break
+        }
+
+        let fetch: NSFetchRequest<SpendReport> = SpendReport.fetchRequest()
+        fetch.sortDescriptors = [sortDescriptor]
+        fetch.predicate = predicate
+        let reportArray = try! context.fetch(fetch)
+        
+        return reportArray
+    }
+    
+    func loadIncomeReport(_ startDate:NSDate?,_ EndDate:NSDate?,_ category:String?) -> [IncomeReport] {
+        let context:NSManagedObjectContext = appDelegate.persistentContainer.viewContext
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        var predicate:NSPredicate!
+        switch (startDate, category) {
+        case (.some,.none):
+            predicate = NSPredicate(format:"(date >= %@) AND (date <= %@)",startDate!,EndDate!)
+        case (.none,.some):
+            predicate = NSPredicate(format:"(category == %@)",category!)
+        case (.some,.some):
+            predicate = NSPredicate(format:"(date >= %@) AND (date <= %@) AND (category == %@)",startDate!,EndDate!,category!)
+        default:break
+        }
+        
+        let fetch: NSFetchRequest<IncomeReport> = IncomeReport.fetchRequest()
+        fetch.sortDescriptors = [sortDescriptor]
+        fetch.predicate = predicate
+        let reportArray = try! context.fetch(fetch)
+        
+        return reportArray
+    }
+    
+    func loadWasteSpendReport(_ startDate:NSDate?,_ EndDate:NSDate?,_ category:String?) -> [SpendReport] {
+        let context:NSManagedObjectContext = appDelegate.persistentContainer.viewContext
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        var predicate:NSPredicate!
+        switch (startDate, category) {
+        case (.some,.none):
+            predicate = NSPredicate(format:"(date >= %@) AND (date <= %@) AND (wasteBool == true)",startDate!,EndDate!)
+        case (.none,.some):
+            predicate = NSPredicate(format:"(category == %@) AND (wasteBool == true)",category!)
+        case (.some,.some):
+            predicate = NSPredicate(format:"(date >= %@) AND (date <= %@) AND (category == %@) AND (wasteBool == true)",startDate!,EndDate!,category!)
+        default:break
+        }
+        
+        let fetch: NSFetchRequest<SpendReport> = SpendReport.fetchRequest()
+        fetch.sortDescriptors = [sortDescriptor]
+        fetch.predicate = predicate
+        let reportArray = try! context.fetch(fetch)
+        
+        return reportArray
+    }
+    
+    func inputTermCalcurate() -> Int {
+        let context:NSManagedObjectContext = appDelegate.persistentContainer.viewContext
+        var separateDay = loadSetting().separateDay
+        
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        let spendFetch: NSFetchRequest<SpendReport> = SpendReport.fetchRequest()
+        let incomeFetch: NSFetchRequest<IncomeReport> = IncomeReport.fetchRequest()
+        spendFetch.sortDescriptors = [sortDescriptor]
+        incomeFetch.sortDescriptors = [sortDescriptor]
+        let spendReportArray = try! context.fetch(spendFetch)
+        let incomeReportArray = try! context.fetch(incomeFetch)
+        var firstDate: Date!
+        
+        switch (spendReportArray.isEmpty,incomeReportArray.isEmpty) {
+        case (true,true):
+            return 0
+        case (true,false):
+            firstDate = incomeReportArray[0].date!
+        case (false,true):
+            firstDate = spendReportArray[0].date!
+        case (false,false):
+            let spendDate = spendReportArray[0].date!
+            let incomeDate = incomeReportArray[0].date!
+            if spendDate < incomeDate{
+                firstDate = spendDate
+            }else{
+                firstDate = incomeDate
+            }
+        }
+        
+        let date = Date()
+        let calendar = Calendar.current
+        var year = calendar.component(.year, from: date)
+        var month = calendar.component(.month, from: date)
+        if separateDay == 28{
+            month += 1
+            separateDay = 1
+        }else if calendar.component(.day, from: date) > separateDay{
+            month += 1
+            separateDay += 1
+        }else{
+            separateDay += 1
+        }
+        if month > 12{
+            year += 1
+            month -= 12
+        }
+        
+        let dateFormater = DateFormatter()
+        dateFormater.locale = Locale(identifier: "ja_JP")
+        dateFormater.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        
+        let d = dateFormater.date(from: "\(year)/\(month)/\(separateDay) 00:00:00")!
+        let add = DateComponents(second: -2)
+        let nowDate = calendar.date(byAdding: add, to: d)!
+        
+        var comps = calendar.dateComponents([.month], from: firstDate, to: nowDate)
+        
+        return comps.month! + 1
+    }
+    
     func loadSetting() -> Settings {
         let context:NSManagedObjectContext = appDelegate.persistentContainer.viewContext
         let categoryFetch: NSFetchRequest<Settings> = Settings.fetchRequest()
@@ -103,42 +230,23 @@ class Methods{
     func allDelete(){
         print("データ削除開始")
         let context:NSManagedObjectContext = appDelegate.persistentContainer.viewContext
-        let deleteSpendFetch: NSFetchRequest<SpendCategory> = SpendCategory.fetchRequest()
-        let deleteSpendResults = try! context.fetch(deleteSpendFetch)
-        for i in 0 ..< deleteSpendResults.count{
-            let deleteObject = deleteSpendResults[i] as SpendCategory
-            context.delete(deleteObject)
+
+        let editFetch: NSFetchRequest<SpendReport> = SpendReport.fetchRequest()
+        let predicate = NSPredicate(format:"(rangeString == 'くらい')")
+        editFetch.predicate = predicate
+        let spendReportArray = try! context.fetch(editFetch)
+        for SR in spendReportArray{
+            SR.rangeString = "ピッタリ"
         }
-        let deleteIncomeFetch: NSFetchRequest<IncomeCategory> = IncomeCategory.fetchRequest()
-        let deleteIncomeResults = try! context.fetch(deleteIncomeFetch)
-        for i in 0 ..< deleteIncomeResults.count{
-            let deleteObject = deleteIncomeResults[i] as IncomeCategory
-            context.delete(deleteObject)
+        
+        let editFetch2: NSFetchRequest<IncomeReport> = IncomeReport.fetchRequest()
+        let predicate2 = NSPredicate(format:"(rangeString == 'くらい')")
+        editFetch2.predicate = predicate2
+        let incomeReportArray = try! context.fetch(editFetch2)
+        for IR in incomeReportArray{
+            IR.rangeString = "ピッタリ"
         }
-        let deleteSRFetch: NSFetchRequest<SpendReport> = SpendReport.fetchRequest()
-        let deleteSRResults = try! context.fetch(deleteSRFetch)
-        for i in 0 ..< deleteSRResults.count{
-            let deleteObject = deleteSRResults[i] as SpendReport
-            context.delete(deleteObject)
-        }
-        let deleteIRFetch: NSFetchRequest<IncomeReport> = IncomeReport.fetchRequest()
-        let deleteIRResults = try! context.fetch(deleteIRFetch)
-        for i in 0 ..< deleteIRResults.count{
-            let deleteObject = deleteIRResults[i] as IncomeReport
-            context.delete(deleteObject)
-        }
-        let deleteISFetch: NSFetchRequest<InputSchedule> = InputSchedule.fetchRequest()
-        let deleteISResults = try! context.fetch(deleteISFetch)
-        for i in 0 ..< deleteISResults.count{
-            let deleteObject = deleteISResults[i] as InputSchedule
-            context.delete(deleteObject)
-        }
-        let deleteSettingFetch: NSFetchRequest<Settings> = Settings.fetchRequest()
-        let deleteSettingResults = try! context.fetch(deleteSettingFetch)
-        for i in 0 ..< deleteSettingResults.count{
-            let deleteObject = deleteSettingResults[i] as Settings
-            context.delete(deleteObject)
-        }
+        UserDefaults.standard.set(false, forKey: "update")
     }
 }
 

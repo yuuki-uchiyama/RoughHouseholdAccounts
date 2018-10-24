@@ -5,7 +5,7 @@ PODS:
   - Charts (3.1.1):
     - Charts/Core (= 3.1.1)
   - Charts/Core (3.1.1)
-  - Expression (0.12.9)
+  - Expression (0.12.11)
   - Firebase/Core (5.0.1):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.0.0)
@@ -36,7 +36,7 @@ PODS:
 DEPENDENCIES:
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - Charts
-  - Expression (~> 0.12)
+  - Expression (~> 0.12.11)
   - Firebase/Core
   - Google-Mobile-Ads-SDK
   - HMSegmentedControl
@@ -70,7 +70,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
-  Expression: 009720cde3259d5e39dc18f1d32504fa136b4a09
+  Expression: e95e5008e48a066c90b40c7962823d252e908440
   Firebase: d6861c2059d8c32d1e6dd8932e22ada346d90a3a
   FirebaseAnalytics: 19812b49fa5f283dd6b23edf8a14b5d477029ab8
   FirebaseCore: cafc814b2d84fc8733f09e653041cc2165332ad7
@@ -82,6 +82,6 @@ SPEC CHECKSUMS:
   RAMAnimatedTabBarController: 0499157f67053a21bcccb52a25dd3c6ecdbfb4f6
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: dd610b393e08329344c2e886ed92464cd5a18ff1
+PODFILE CHECKSUM: f0520f6f196f41298ea50849accf976a3e1fc111
 
 COCOAPODS: 1.5.3

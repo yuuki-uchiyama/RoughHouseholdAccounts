@@ -36,6 +36,8 @@ class BannerAdsView: UIView, GADBannerViewDelegate {
         toGraphButton.layer.cornerRadius = 20.0
         OKButton.alpha = 0.3
         toGraphButton.alpha = 0.3
+        OKButton.isEnabled = false
+        toGraphButton.isEnabled = false
     }
     
 
@@ -49,17 +51,29 @@ class BannerAdsView: UIView, GADBannerViewDelegate {
     }
     
     func addAds(_ VC:UIViewController){
-        rectangleBannerView = GADBannerView(adSize: kGADAdSizeMediumRectangle)
+        rectangleBannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        print(rectangleBannerView)
         rectangleView.addSubview(rectangleBannerView)
-        rectangleBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        rectangleBannerView.adUnitID = "ca-app-pub-3240594386716005/9516385182"
         rectangleBannerView.delegate = self
         rectangleBannerView.rootViewController = VC
         rectangleBannerView.load(GADRequest())
+
+    }
+    
+    func adView(_ bannerView: GADBannerView,
+                didFailToReceiveAdWithError error: GADRequestError) {
+        OKButton.alpha = 1.0
+        toGraphButton.alpha = 1.0
+        OKButton.isEnabled = true
+        toGraphButton.isEnabled = true
     }
     
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         OKButton.alpha = 1.0
         toGraphButton.alpha = 1.0
+        OKButton.isEnabled = true
+        toGraphButton.isEnabled = true
     }
 
     /*

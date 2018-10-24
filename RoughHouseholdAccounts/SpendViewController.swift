@@ -34,6 +34,7 @@ class SpendViewController: UIViewController, UICollectionViewDataSource, UIColle
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var rangePickerView: UIPickerView!
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var wasteButton: UIButton!
     @IBOutlet weak var admobView: UIView!
     @IBOutlet weak var one: UIButton!
     @IBOutlet weak var two: UIButton!
@@ -59,6 +60,7 @@ class SpendViewController: UIViewController, UICollectionViewDataSource, UIColle
 
     var bannerView: GADBannerView!
     var bannerAdsView: BannerAdsView!
+    var backView:UIView!
     
 //    編集画面として使う場合のプロパティ
     var editBool = false
@@ -74,9 +76,9 @@ class SpendViewController: UIViewController, UICollectionViewDataSource, UIColle
     
 //    画面上部関係のプロパティ
     var categoryArray: [String] = []
-    var rangeArray = ["より少ない", "より少し少ない", "くらい", "より少し多い", "より多い"]
-    var rangeDic: [String:Int] = ["より少ない":-2, "より少し少ない":-1, "くらい":0, "より少し多い":1, "より多い":2 ]
-    var selectedRange = "くらい"
+    var rangeArray = ["より少ない", "より少し少ない", "ピッタリ", "より少し多い", "より多い"]
+    var rangeDic: [String:Int] = ["より少ない":-2, "より少し少ない":-1, "ピッタリ":0, "より少し多い":1, "より多い":2 ]
+    var selectedRange = "ピッタリ"
     
 //    ピッカービュー、コレクションビューの初期位置
     var selectedIndex: IndexPath = [0,0]
@@ -88,6 +90,7 @@ class SpendViewController: UIViewController, UICollectionViewDataSource, UIColle
     var amount: Int! = 0
     var range: Int! = 0
     var spendCategory = ""
+    var wasteBool = false
     
 //    ポップアップに日付を表示
     var formatter = DateFormatter()
@@ -136,10 +139,11 @@ class SpendViewController: UIViewController, UICollectionViewDataSource, UIColle
             
             selectedRange = editRange
             spendCategory = editCategory
+            wasteButton.isSelected = editSR.wasteBool
             
             bannerView = GADBannerView(adSize: kGADAdSizeBanner)
             admobView.addSubview(bannerView)
-            bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+            bannerView.adUnitID = "ca-app-pub-3240594386716005/9516385182"
             bannerView.rootViewController = self
             bannerView.load(GADRequest())
         }else{
@@ -183,6 +187,7 @@ class SpendViewController: UIViewController, UICollectionViewDataSource, UIColle
             button.addTarget(self, action: #selector(buttonUnTaped(_:)), for: .touchUpInside)
         }
         viewOfTextField.layer.cornerRadius = viewOfTextField.frame.height / 2.5
+        wasteButton.setImage(UIImage(named: "CheckOn"), for: .selected)
     }
     
     func defaultSetting(){
@@ -244,7 +249,7 @@ class SpendViewController: UIViewController, UICollectionViewDataSource, UIColle
         label.font = UIFont(name: "Hiragino Maru Gothic ProN", size: 18 )
         label.adjustsFontSizeToFitWidth = true
         return label
-    }
+    } 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedRange = rangeArray[row]
     }
@@ -252,23 +257,28 @@ class SpendViewController: UIViewController, UICollectionViewDataSource, UIColle
     @IBAction func inputButton(_ sender: Any) {
         enter()
         if textField.text != "0"{
-        date = datePicker.date
-        amount = Int(textField.text!)
-        let formatDate = formatter.string(from: date)
-        let rangeNumber = rangeDic[selectedRange]!
-        range = methods.rangeCalculate(amount, rangeNumber, rangeSetting)
-        var message = ""
-        if editBool{message = "上記の内容に変更します"}else{message = "上記の内容で登録します"}
-        let alertController: UIAlertController = UIAlertController(title: "\(formatDate)\n\(spendCategory)\n\(amount!)円\(selectedRange)", message: message, preferredStyle: .alert)
-        let yes = UIAlertAction(title: "はい", style: .default, handler: {
-            (action: UIAlertAction!) -> Void in
-            self.recording()
-        })
-        let no = UIAlertAction(title: "いいえ", style: .cancel)
-        
-        alertController.addAction(yes)
-        alertController.addAction(no)
-        present(alertController, animated: true, completion: nil)
+            date = datePicker.date
+            amount = Int(textField.text!)
+            let formatDate = formatter.string(from: date)
+            let rangeNumber = rangeDic[selectedRange]!
+            range = methods.rangeCalculate(amount, rangeNumber, rangeSetting)
+            wasteBool = wasteButton.isSelected
+            var title = "\(formatDate)\n\(spendCategory)\n\(amount!)円\(selectedRange)\n"
+            if wasteButton.isSelected{
+                title += "ムダ遣いかも？"
+            }
+            var message = ""
+            if editBool{message = "上記の内容に変更します"}else{message = "上記の内容で登録します"}
+            let alertController: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let yes = UIAlertAction(title: "はい", style: .default, handler: {
+                (action: UIAlertAction!) -> Void in
+                self.recording()
+            })
+            let no = UIAlertAction(title: "いいえ", style: .cancel)
+            
+            alertController.addAction(yes)
+            alertController.addAction(no)
+            present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -279,6 +289,7 @@ class SpendViewController: UIViewController, UICollectionViewDataSource, UIColle
             editSR.rangeString = selectedRange
             editSR.range = Int64(range)
             editSR.category = spendCategory
+            editSR.wasteBool = wasteButton.isSelected
             try! context.save()
             
         }else{
@@ -290,6 +301,7 @@ class SpendViewController: UIViewController, UICollectionViewDataSource, UIColle
             spendReport.setValue(self.selectedRange, forKey: "rangeString")
             spendReport.setValue(Int64(self.range), forKeyPath: "range")
             spendReport.setValue(self.spendCategory, forKeyPath: "category")
+            spendReport.setValue(self.wasteButton.isSelected, forKey: "wasteBool")
             
             try! context.save()
             AllClear()
@@ -301,8 +313,13 @@ class SpendViewController: UIViewController, UICollectionViewDataSource, UIColle
                 spendCategory = categoryArray[0]
                 categoryCollectionView.reloadData()
             }
+            wasteButton.isSelected = false
         }
-        bannerAdsView = BannerAdsView(frame: CGRect(x: 0, y: 0, width: 336, height: 386))
+        backView = UIView(frame: self.view.frame)
+        backView.backgroundColor = UIColor.white
+        backView.alpha = 0.3
+        self.view.addSubview(backView)
+        bannerAdsView = BannerAdsView(frame: CGRect(x: 0, y: 0, width: 320, height: 180))
         bannerAdsView.center = self.view.center
         bannerAdsView.addAds(self)
         bannerAdsView.labelChenged(editBool)
@@ -321,6 +338,11 @@ class SpendViewController: UIViewController, UICollectionViewDataSource, UIColle
             datePicker.setDate(date, animated: true)
         }
     }
+    
+    @IBAction func wasteButton(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
     
     
 //    inputState = 1
@@ -490,6 +512,7 @@ class SpendViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
     @objc func OKButton(){
+        backView.removeFromSuperview()
         bannerAdsView.removeFromSuperview()
         if editBool{
             performSegue(withIdentifier: "unwindToReport", sender: nil)
@@ -497,6 +520,7 @@ class SpendViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
     @objc func toGraphButton(){
+        backView.removeFromSuperview()
         bannerAdsView.removeFromSuperview()
         if editBool{
             performSegue(withIdentifier: "unwindToGraph", sender: nil)

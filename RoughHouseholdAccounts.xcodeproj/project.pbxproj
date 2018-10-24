@@ -14,7 +14,7 @@
 		81014111211022BE00FC756A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81014110211022BE00FC756A /* TabBarController.swift */; };
 		8101EF722112BA4400388F2F /* SpendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101EF712112BA4400388F2F /* SpendViewController.swift */; };
 		8101EF742112BA5000388F2F /* IncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101EF732112BA5000388F2F /* IncomeViewController.swift */; };
-		8101EF762112BA5E00388F2F /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101EF752112BA5E00388F2F /* GraphViewController.swift */; };
+		8101EF762112BA5E00388F2F /* MonthlyGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101EF752112BA5E00388F2F /* MonthlyGraphViewController.swift */; };
 		8101EF782112BA6800388F2F /* TermViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101EF772112BA6800388F2F /* TermViewController.swift */; };
 		8101EF7A2112BA7300388F2F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101EF792112BA7300388F2F /* SettingViewController.swift */; };
 		8101EF812112F00900388F2F /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101EF7F2112F00900388F2F /* CategoryCollectionViewCell.swift */; };
@@ -22,11 +22,20 @@
 		8101EF872113617F00388F2F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101EF862113617F00388F2F /* Constants.swift */; };
 		8101EFA821146C8400388F2F /* CategoryReportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101EFA621146C8400388F2F /* CategoryReportTableViewCell.swift */; };
 		8101EFA921146C8400388F2F /* CategoryReportTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8101EFA721146C8400388F2F /* CategoryReportTableViewCell.xib */; };
+		810340D621788A36009C47F4 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810340D521788A36009C47F4 /* Extension.swift */; };
+		810340D82178BDAF009C47F4 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810340D72178BDAF009C47F4 /* GraphViewController.swift */; };
+		810340DA2178C7C2009C47F4 /* ItemizedGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810340D92178C7C2009C47F4 /* ItemizedGraphViewController.swift */; };
 		8124AE4A212226B100F5765F /* MoneyReportModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8124AE48212226B100F5765F /* MoneyReportModel.xcdatamodeld */; };
 		8124AE73212ECF7000F5765F /* Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8124AE72212ECF7000F5765F /* Methods.swift */; };
 		812E771E21393CE3001803CD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 812E771D21393CE3001803CD /* GoogleService-Info.plist */; };
 		812E772A2139AAD2001803CD /* BannerAdsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E77292139AAD2001803CD /* BannerAdsView.swift */; };
 		812E772C2139AF64001803CD /* BannerAdsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 812E772B2139AF64001803CD /* BannerAdsView.xib */; };
+		8186F132214CFB860048ED1D /* HelpView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8186F131214CFB860048ED1D /* HelpView.xib */; };
+		8186F134214CFBBF0048ED1D /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8186F133214CFBBF0048ED1D /* HelpView.swift */; };
+		81F35940217CE5EE00817468 /* SpecialTermGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F3593F217CE5EE00817468 /* SpecialTermGraphView.swift */; };
+		81F35942217CE62100817468 /* SpecialTermGraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81F35941217CE62100817468 /* SpecialTermGraphView.xib */; };
+		81F35944217CFC5700817468 /* SpecialItemGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F35943217CFC5700817468 /* SpecialItemGraphView.swift */; };
+		81F35946217D016A00817468 /* SpecialItemGraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81F35945217D016A00817468 /* SpecialItemGraphView.xib */; };
 		81F472D62135D7BE008FD5E7 /* TermItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F472D42135D7BE008FD5E7 /* TermItemTableViewCell.swift */; };
 		81F472D72135D7BE008FD5E7 /* TermItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81F472D52135D7BE008FD5E7 /* TermItemTableViewCell.xib */; };
 		81F626E7213538C700FD88EA /* ReportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F626E5213538C700FD88EA /* ReportTableViewCell.swift */; };
@@ -48,7 +57,7 @@
 		81014110211022BE00FC756A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		8101EF712112BA4400388F2F /* SpendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendViewController.swift; sourceTree = "<group>"; };
 		8101EF732112BA5000388F2F /* IncomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeViewController.swift; sourceTree = "<group>"; };
-		8101EF752112BA5E00388F2F /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
+		8101EF752112BA5E00388F2F /* MonthlyGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyGraphViewController.swift; sourceTree = "<group>"; };
 		8101EF772112BA6800388F2F /* TermViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermViewController.swift; sourceTree = "<group>"; };
 		8101EF792112BA7300388F2F /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		8101EF7F2112F00900388F2F /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -56,11 +65,20 @@
 		8101EF862113617F00388F2F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8101EFA621146C8400388F2F /* CategoryReportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryReportTableViewCell.swift; sourceTree = "<group>"; };
 		8101EFA721146C8400388F2F /* CategoryReportTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryReportTableViewCell.xib; sourceTree = "<group>"; };
+		810340D521788A36009C47F4 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		810340D72178BDAF009C47F4 /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
+		810340D92178C7C2009C47F4 /* ItemizedGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemizedGraphViewController.swift; sourceTree = "<group>"; };
 		8124AE49212226B100F5765F /* MoneyReportModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MoneyReportModel.xcdatamodel; sourceTree = "<group>"; };
 		8124AE72212ECF7000F5765F /* Methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Methods.swift; sourceTree = "<group>"; };
 		812E771D21393CE3001803CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		812E77292139AAD2001803CD /* BannerAdsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdsView.swift; sourceTree = "<group>"; };
 		812E772B2139AF64001803CD /* BannerAdsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerAdsView.xib; sourceTree = "<group>"; };
+		8186F131214CFB860048ED1D /* HelpView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpView.xib; sourceTree = "<group>"; };
+		8186F133214CFBBF0048ED1D /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
+		81F3593F217CE5EE00817468 /* SpecialTermGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTermGraphView.swift; sourceTree = "<group>"; };
+		81F35941217CE62100817468 /* SpecialTermGraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpecialTermGraphView.xib; sourceTree = "<group>"; };
+		81F35943217CFC5700817468 /* SpecialItemGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialItemGraphView.swift; sourceTree = "<group>"; };
+		81F35945217D016A00817468 /* SpecialItemGraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpecialItemGraphView.xib; sourceTree = "<group>"; };
 		81F472D42135D7BE008FD5E7 /* TermItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermItemTableViewCell.swift; sourceTree = "<group>"; };
 		81F472D52135D7BE008FD5E7 /* TermItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TermItemTableViewCell.xib; sourceTree = "<group>"; };
 		81F626E5213538C700FD88EA /* ReportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTableViewCell.swift; sourceTree = "<group>"; };
@@ -122,7 +140,9 @@
 				810140F6210C9DE400FC756A /* Main.storyboard */,
 				8101EF712112BA4400388F2F /* SpendViewController.swift */,
 				8101EF732112BA5000388F2F /* IncomeViewController.swift */,
-				8101EF752112BA5E00388F2F /* GraphViewController.swift */,
+				810340D72178BDAF009C47F4 /* GraphViewController.swift */,
+				8101EF752112BA5E00388F2F /* MonthlyGraphViewController.swift */,
+				810340D92178C7C2009C47F4 /* ItemizedGraphViewController.swift */,
 				81FF839721199001001B2719 /* ReportViewController.swift */,
 				8101EF772112BA6800388F2F /* TermViewController.swift */,
 				81FF839921199011001B2719 /* TermItemViewController.swift */,
@@ -130,8 +150,10 @@
 				81FF839B2119901D001B2719 /* SettingItemViewController.swift */,
 				8101EF862113617F00388F2F /* Constants.swift */,
 				8124AE72212ECF7000F5765F /* Methods.swift */,
+				810340D521788A36009C47F4 /* Extension.swift */,
 				810140F9210C9DE700FC756A /* Assets.xcassets */,
 				810140FB210C9DE700FC756A /* LaunchScreen.storyboard */,
+				8186F135214CFBC80048ED1D /* HelpView */,
 				8124AE48212226B100F5765F /* MoneyReportModel.xcdatamodeld */,
 				810140FE210C9DE700FC756A /* Info.plist */,
 				812E771D21393CE3001803CD /* GoogleService-Info.plist */,
@@ -152,8 +174,21 @@
 				81F472D52135D7BE008FD5E7 /* TermItemTableViewCell.xib */,
 				812E77292139AAD2001803CD /* BannerAdsView.swift */,
 				812E772B2139AF64001803CD /* BannerAdsView.xib */,
+				81F3593F217CE5EE00817468 /* SpecialTermGraphView.swift */,
+				81F35941217CE62100817468 /* SpecialTermGraphView.xib */,
+				81F35943217CFC5700817468 /* SpecialItemGraphView.swift */,
+				81F35945217D016A00817468 /* SpecialItemGraphView.xib */,
 			);
 			path = cell;
+			sourceTree = "<group>";
+		};
+		8186F135214CFBC80048ED1D /* HelpView */ = {
+			isa = PBXGroup;
+			children = (
+				8186F131214CFB860048ED1D /* HelpView.xib */,
+				8186F133214CFBBF0048ED1D /* HelpView.swift */,
+			);
+			path = HelpView;
 			sourceTree = "<group>";
 		};
 		91394A71A27D4DF0BE448BFD /* Frameworks */ = {
@@ -238,9 +273,12 @@
 				810140FA210C9DE700FC756A /* Assets.xcassets in Resources */,
 				810140F8210C9DE400FC756A /* Main.storyboard in Resources */,
 				8101EFA921146C8400388F2F /* CategoryReportTableViewCell.xib in Resources */,
+				81F35946217D016A00817468 /* SpecialItemGraphView.xib in Resources */,
+				81F35942217CE62100817468 /* SpecialTermGraphView.xib in Resources */,
 				812E772C2139AF64001803CD /* BannerAdsView.xib in Resources */,
 				81F626E8213538C700FD88EA /* ReportTableViewCell.xib in Resources */,
 				81F472D72135D7BE008FD5E7 /* TermItemTableViewCell.xib in Resources */,
+				8186F132214CFB860048ED1D /* HelpView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,21 +344,27 @@
 			files = (
 				8101EF782112BA6800388F2F /* TermViewController.swift in Sources */,
 				81014111211022BE00FC756A /* TabBarController.swift in Sources */,
-				8101EF762112BA5E00388F2F /* GraphViewController.swift in Sources */,
+				81F35944217CFC5700817468 /* SpecialItemGraphView.swift in Sources */,
+				8101EF762112BA5E00388F2F /* MonthlyGraphViewController.swift in Sources */,
 				81F626E7213538C700FD88EA /* ReportTableViewCell.swift in Sources */,
 				8101EF722112BA4400388F2F /* SpendViewController.swift in Sources */,
+				810340DA2178C7C2009C47F4 /* ItemizedGraphViewController.swift in Sources */,
 				81FF839C2119901D001B2719 /* SettingItemViewController.swift in Sources */,
 				8101EF872113617F00388F2F /* Constants.swift in Sources */,
 				8124AE4A212226B100F5765F /* MoneyReportModel.xcdatamodeld in Sources */,
 				810140F3210C9DE400FC756A /* AppDelegate.swift in Sources */,
+				810340D82178BDAF009C47F4 /* GraphViewController.swift in Sources */,
 				8101EF812112F00900388F2F /* CategoryCollectionViewCell.swift in Sources */,
 				81FF839821199001001B2719 /* ReportViewController.swift in Sources */,
+				8186F134214CFBBF0048ED1D /* HelpView.swift in Sources */,
 				81F472D62135D7BE008FD5E7 /* TermItemTableViewCell.swift in Sources */,
 				8101EF7A2112BA7300388F2F /* SettingViewController.swift in Sources */,
 				81FF839A21199011001B2719 /* TermItemViewController.swift in Sources */,
+				810340D621788A36009C47F4 /* Extension.swift in Sources */,
 				8101EFA821146C8400388F2F /* CategoryReportTableViewCell.swift in Sources */,
 				8124AE73212ECF7000F5765F /* Methods.swift in Sources */,
 				812E772A2139AAD2001803CD /* BannerAdsView.swift in Sources */,
+				81F35940217CE5EE00817468 /* SpecialTermGraphView.swift in Sources */,
 				8101EF742112BA5000388F2F /* IncomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

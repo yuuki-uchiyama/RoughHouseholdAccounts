@@ -70,9 +70,10 @@ struct Const {
     static let reportCategory = "category"
     static let reportDate = "date"
     
+    static let updateTo2 = "updateTo2.0"
 }
 
-//let rangeDic: [String:Int] = ["より少ない":-2, "よりちょっと少ない":-1, "くらい":0, "よりちょっと多い":1, "より多い":2 ]
+//let rangeDic: [String:Int] = ["より少ない":-2, "よりちょっと少ない":-1, "ピッタリ":0, "よりちょっと多い":1, "より多い":2 ]
 
 struct HHDocInfo{
     static let NAME = "RoughHouseholdAccounts"
